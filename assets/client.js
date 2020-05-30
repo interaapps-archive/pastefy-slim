@@ -56,12 +56,12 @@ async function page(){
     if (window.location.hash === "") {
         
     } else {
-        actionButtons.append(actionButtonList.edit);
         configRequest.then(()=>{
             Cajax.get(config.server, {
                 paste: window.location.hash.split("#")[1].split("!")[0]
             }).then((res)=>{
                 const pasteCode = CryptoJS.AES.decrypt(JSON.parse(res.responseText).content, window.location.hash.split("#")[1].split("!")[1]).toString(CryptoJS.enc.Utf8);
+                actionButtons.append(actionButtonList.edit);
                 paste.val(pasteCode.replace("\n", "\\n"));
                 paste.toggle();
                 let pre = $n("pre").append(
